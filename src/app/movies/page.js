@@ -2,7 +2,7 @@ import { connect } from "@/utilities/connect";
 import Image from "next/image";
 import Link from "next/link";
 
-export default async function Movies({ searchParams }) {
+export default async function Movies({ searchParams, params }) {
   const db = connect();
 
   const movies = (await db.query(`SELECT * FROM movies`)).rows;
@@ -25,10 +25,8 @@ export default async function Movies({ searchParams }) {
         <Link href="/movies">Remove sort</Link>
       </div>
 
-      {/* //? this displayes the movies form the db can i have the link to DR's in here as well?---------------------------------------------------------------------*/}
       {movies.map((movies) => (
         <div key={movies.id} className="relative group">
-          {/* link to individual movies for dinamic route -----------------------------------------------------------------------------------------------------------*/}
           <div>
             <Link href={`/movies/${movies.id}`}>{movies.title}</Link>
           </div>
