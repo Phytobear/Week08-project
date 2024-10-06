@@ -1,3 +1,5 @@
+"use client"
+
 import MovieImage from "@/components/MovieImage";
 import Link from "next/link";
 import Button from "./Button";
