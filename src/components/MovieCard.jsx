@@ -1,5 +1,6 @@
 import MovieImage from "@/components/MovieImage";
 import Link from "next/link";
+import Button from "./Button";
 
 export default function MovieCard({ movie, reviewCount }) {
   return (
@@ -13,9 +14,7 @@ export default function MovieCard({ movie, reviewCount }) {
       <p>{reviewCount} reviews</p>
       <div className="mt-2">
         <Link href={`/movies/${movie.id}`}>
-          <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-            Go to Reviews
-          </button>
+          <Button>Go to Reviews</Button>
         </Link>
       </div>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Button from "@/components/Button";
 import { useState } from "react";
 
 export default function ReviewDelete({ review, onDelete }) {
@@ -8,14 +9,14 @@ export default function ReviewDelete({ review, onDelete }) {
   async function handleDelete() {
     setIsDeleting(true);
 
-    const res = await fetch(`/api/reviews/${review.id}`, {
+    const res = await fetch("/api/reviews/${review.id}", {
       method: "DELETE",
     });
 
     if (res.ok) {
       onDelete(review.id);
     } else {
-      alert("Failed to delete the review.");
+      alert("failed to delete the review.");
     }
 
     setIsDeleting(false);
@@ -24,9 +25,9 @@ export default function ReviewDelete({ review, onDelete }) {
   return (
     <div>
       <p>{review.content}</p>
-      <button onClick={handleDelete} disabled={isDeleting}>
+      <Button onClick={handleDelete} disabled={isDeleting}>
         {isDeleting ? "Deleting..." : "Delete"}
-      </button>
+      </Button>
     </div>
   );
 }

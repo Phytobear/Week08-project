@@ -1,6 +1,7 @@
 import pg from "pg";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import Button from "./Button";
 
 export default function Review() {
   async function handleSubmit(formData) {
@@ -81,7 +82,7 @@ export default function Review() {
           <input name="image_url" placeholder="image url" />
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <Button type="submit">Submit</Button>
         </div>
       </form>
     </div>

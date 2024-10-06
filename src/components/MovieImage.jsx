@@ -6,7 +6,7 @@ export default function MovieImage({
   width = 150,
   height = 200,
 }) {
-  const placeholderImage = "/images/landscape-placeholder-svgrepo-com.svg";
+  const placeholderImage = `/images/landscape-placeholder-svgrepo-com.svg`;
 
   return (
     <Image

@@ -9,11 +9,11 @@ export default async function MoviePage({ params }) {
   const { id } = params;
 
   // Query to fetch movie details
-  const moviesQuery = "SELECT * FROM movies WHERE id = $1";
+  const moviesQuery = `SELECT * FROM movies WHERE id = $1`;
   const moviesResult = await pool.query(moviesQuery, [id]);
 
-  // Query to fetch reviews related to movie
-  const reviewQuery = "SELECT * FROM reviews WHERE movie_id = $1";
+  // Query to fetch reviews rfor that movie
+  const reviewQuery = `SELECT * FROM reviews WHERE movie_id = $1`;
   const reviewResult = await pool.query(reviewQuery, [id]);
 
   // Check movie

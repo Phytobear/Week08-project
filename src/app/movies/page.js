@@ -1,7 +1,7 @@
 import { connect } from "@/utilities/connect";
 import Image from "next/image";
-import Link from "next/link";
 import MovieCard from "@/components/MovieCard";
+import LinkButton from "@/components/LinkButton";
 
 export default async function Movies({ searchParams, params }) {
   const db = connect();
@@ -26,9 +26,9 @@ export default async function Movies({ searchParams, params }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
       <div>
-        <Link href="/movies?sortBy=asc">Sort by asc</Link>
-        <Link href="/movies?sortBy=desc">Sort by desc</Link>
-        <Link href="/movies">Remove sort</Link>
+        <LinkButton href="/movies?sortBy=asc">Sort by asc</LinkButton>
+        <LinkButton href="/movies?sortBy=desc">Sort by desc</LinkButton>
+        <LinkButton href="/movies">Remove sort</LinkButton>
       </div>
 
       {sorted.map((movie) => (

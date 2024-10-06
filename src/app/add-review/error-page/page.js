@@ -1,3 +1,5 @@
+import LinkButton from "@/components/LinkButton";
+
 export default function ErrorPage() {
   return (
     <div>
@@ -6,7 +8,7 @@ export default function ErrorPage() {
         there seems to be a problem submitting your review, we are sorry about
         that
       </p>
-      <a href="/add-review">go back</a>
+      <LinkButton href="/add-review">go back</LinkButton>
     </div>
   );
 }
