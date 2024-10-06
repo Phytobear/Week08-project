@@ -19,16 +19,33 @@ export default async function Movies({ searchParams, params }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 p-6">
       <div>
-        {/* //TODO Make these buttons ------------------------------------------------------------------------------------------------------------------------------*/}
         <Link href="/movies?sortBy=asc">Sort by asc</Link>
         <Link href="/movies?sortBy=desc">Sort by desc</Link>
         <Link href="/movies">Remove sort</Link>
       </div>
 
-      {movies.map((movies) => (
-        <div key={movies.id} className="relative group">
-          <div>
-            <Link href={`/movies/${movies.id}`}>{movies.title}</Link>
+      {movies.map((movie) => (
+        <div
+          key={movie.id}
+          className="relative group p-4 border border-gray-200 rounded-lg"
+        >
+          <h3 className="font-bold text-lg mb-2">{movie.title}</h3>
+
+          {/* display image_url or placeholder */}
+          <Image
+            src={movie.image_url || "https://via.placeholder.com/150"}
+            alt={movie.title}
+            width={150}
+            height={200}
+            className="rounded"
+          />
+
+          <div className="mt-2">
+            <Link href={`/movies/${movie.id}`}>
+              <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
+                Go to Reviews
+              </button>
+            </Link>
           </div>
         </div>
       ))}

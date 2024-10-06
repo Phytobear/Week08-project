@@ -10,7 +10,8 @@ export default function Review() {
       connectionString: process.env.DB_URL,
     });
 
-    const { movie_title, review_content } = Object.fromEntries(formData);
+    const { movie_title, review_content, image_url } =
+      Object.fromEntries(formData);
 
     if (!movie_title || movie_title.trim() === "") {
       throw new Error("Movie title cannot be empty");
@@ -28,10 +29,10 @@ export default function Review() {
       let movieId;
 
       if (movieResult.rows.length === 0) {
-        // If it dosnt make it
+        // If it dosnt make it (with option to ad img but not required)
         const insertMovieResult = await db.query(
-          "INSERT INTO movies (title) VALUES ($1) RETURNING id",
-          [movie_title]
+          "INSERT INTO movies (title, image_url) VALUES ($1, $2) RETURNING id",
+          [movie_title, image_url || null]
         );
         movieId = insertMovieResult.rows[0].id;
       } else {
@@ -51,18 +52,18 @@ export default function Review() {
       revalidatePath("/add-review");
 
       // Redirect to success page
-      console.log("Redirecting to success page...");
+      console.log("Redirecting to success page");
       redirect("/add-review/success-page");
     } catch (error) {
       await db.query("ROLLBACK");
-      console.error("Error during review submission:", error);
+      console.error("error during review submission:", error);
 
       if (error.message === "NEXT_REDIRECT") {
         throw error;
       }
 
       // Redirect to error page
-      console.log("Redirecting to error page...");
+      console.log("Redirecting to error page");
       redirect("/add-review/error-page");
     }
   }
@@ -77,6 +78,7 @@ export default function Review() {
             placeholder="write your review here"
             required
           />
+          <input name="image_url" placeholder="image url" />
         </div>
         <div>
           <button type="submit">Submit</button>
