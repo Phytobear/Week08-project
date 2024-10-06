@@ -29,14 +29,14 @@ export default function Review() {
       let movieId;
 
       if (movieResult.rows.length === 0) {
-        // If it dosnt make it (with option to ad img but not required)
+        // If it dosnt make it
         const insertMovieResult = await db.query(
           "INSERT INTO movies (title, image_url) VALUES ($1, $2) RETURNING id",
           [movie_title, image_url || null]
         );
         movieId = insertMovieResult.rows[0].id;
       } else {
-        // Movie exists, get its ID
+        // Movie exists? get its ID
         movieId = movieResult.rows[0].id;
       }
 
@@ -48,7 +48,7 @@ export default function Review() {
 
       await db.query("COMMIT");
 
-      // Revalidate
+      // Revalidate?
       revalidatePath("/add-review");
 
       // Redirect to success page

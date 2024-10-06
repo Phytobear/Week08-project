@@ -1,11 +1,18 @@
 import { connect } from "@/utilities/connect";
 import Image from "next/image";
 import Link from "next/link";
+import MovieCard from "@/components/MovieCard";
 
 export default async function Movies({ searchParams, params }) {
   const db = connect();
 
-  const movies = (await db.query(`SELECT * FROM movies`)).rows;
+  const moviesQuery = `
+  SELECT movies.*, 
+  COUNT(reviews.id) AS review_count FROM movies 
+  LEFT JOIN reviews ON reviews.movie_id = movies.id 
+  GROUP BY movies.id
+`;
+  const movies = (await db.query(moviesQuery)).rows;
 
   //?why is this declared but never used? ----------------------------------------------------------------------------------------------------------------------------
   const sorted = movies.sort((a, b) => {
@@ -24,30 +31,12 @@ export default async function Movies({ searchParams, params }) {
         <Link href="/movies">Remove sort</Link>
       </div>
 
-      {movies.map((movie) => (
-        <div
+      {sorted.map((movie) => (
+        <MovieCard
           key={movie.id}
-          className="relative group p-4 border border-gray-200 rounded-lg"
-        >
-          <h3 className="font-bold text-lg mb-2">{movie.title}</h3>
-
-          {/* display image_url or placeholder */}
-          <Image
-            src={movie.image_url || "https://via.placeholder.com/150"}
-            alt={movie.title}
-            width={150}
-            height={200}
-            className="rounded"
-          />
-
-          <div className="mt-2">
-            <Link href={`/movies/${movie.id}`}>
-              <button className="bg-blue-500 text-white p-2 rounded hover:bg-blue-600">
-                Go to Reviews
-              </button>
-            </Link>
-          </div>
-        </div>
+          movie={movie}
+          reviewCount={movie.review_count}
+        />
       ))}
     </div>
   );
