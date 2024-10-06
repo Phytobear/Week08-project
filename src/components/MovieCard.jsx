@@ -7,8 +7,8 @@ export default function MovieCard({ movie, reviewCount }) {
     <div className="relative group p-4 border border-gray-200 rounded-lg flex flex-col items-center justify-center">
       <h3 className="font-bold text-lg mb-2">{movie.title}</h3>
 
-      {/* Use MovieImage component */}
-      <MovieImage imageUrl={movie.image_url} title={movie.title} />
+      {/* MovieImage component */}
+      <MovieImage image_url={movie.image_url} title={movie.title} />
 
       {/* review count */}
       <p>{reviewCount} reviews</p>
